@@ -24,7 +24,7 @@
             <b-field label="Sweet crepe">
                 <div class="tags">
                     <span
-                        @click="menu.dessert = dessert"
+                        @click="setDessert(dessert)"
                         :class="dessert === menu.dessert ? 'tag is-success' : 'tag is-danger'" 
                         v-for="dessert in desserts" 
                         :key="dessert">
@@ -59,8 +59,8 @@ export default Vue.extend({
     },
     watch: {
         menu: {
-            handler(menu) {
-                synchronyseMenu(this.sessionId, menu)
+            async handler(menu) {
+                await synchronyseMenu(this.sessionId, menu)
             },
             deep: true,
         },
@@ -68,11 +68,19 @@ export default Vue.extend({
     async created() {
         fetchUserCurrentMenu$(this.sessionId).subscribe((menu) => {
             if (menu) {
-                this.menu = menu
+                this.menu = {
+                    ingredients: [],
+                    dessert: null,
+                    mirror: false,
+                    ...menu,
+                }
             }
         })
     },
     methods: {
+        setDessert(dessert: DESSERT) {
+            this.menu.dessert = dessert
+        },
         toggleIngredients(ingredient: INGREDIENT) {
             const index = this.menu.ingredients.indexOf(ingredient)
             if (index > -1) {

@@ -26,5 +26,6 @@ export default Vue.extend({
 <style lang="scss">
   #view {
     padding: 1rem;
+    margin-bottom: 15vh; 
   }
 </style>

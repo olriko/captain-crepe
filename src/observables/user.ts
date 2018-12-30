@@ -9,7 +9,6 @@ export const currentUser$ = new BehaviorSubject<User | undefined>(undefined)
 
 export const isAuth$ = currentUser$.pipe(
     map((user) => !!user),
-    tap((isAuth) => console.info(`login status: ${isAuth}`)),
 )
 
 interval(300).pipe(
