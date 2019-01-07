@@ -8,6 +8,23 @@
             </div>
         </h5>
         <menu-item v-for="(menu, userId) in menus" :key="userId" :userId="userId" :menu="menu"/>
+        <h6 class="title is-6" v-show="wrappedMain.length">Wrapped menus</h6>
+        <ul>
+            <li v-for="(wrap, index) in wrappedMain" :key="index">
+                <div class="tags has-addons">
+                    <span class="tag is-info">{{ wrap[0] }}</span>
+                    <span class="tag is-dark">{{ wrap[1] }}</span>
+                </div>
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(wrap, index) in wrappedDessert" :key="index">
+                <div class="tags has-addons">
+                    <span class="tag is-danger">{{ wrap[0] }}</span>
+                    <span class="tag is-dark">{{ wrap[1] }}</span>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -32,13 +49,39 @@ export default Vue.extend({
             this.menus = menus || {}
         })
     },
-    methods: {
+    computed: {
+        wrappedMain(): Array<[string, number]> {
+            const wrap: Map<string, number> = new Map()
+            for (const key in this.menus) {
+                const menu = this.menus[key]
+                if (menu.ingredients.length === 3) {
+                    const k = menu.ingredients.sort().join('-')
+                    wrap.set(k, (wrap.get(k) || 0) + 1)
+                }
+            }
+            return Array.from(wrap).sort((m, n) => m[1] < n[1] ? 1 : -1)
+        },
+        wrappedDessert(): Array<[string, number]> {
+            const wrap: Map<string, number> = new Map()
+            for (const key in this.menus) {
+                const menu = this.menus[key]
+                if (menu.dessert) {
+                    wrap.set(menu.dessert, (wrap.get(menu.dessert) || 0) + 1)
+                }
+            }
+            return Array.from(wrap).sort((m, n) => m[1] < n[1] ? 1 : -1)
+        },
     },
 })
 </script>
 
 <style lang="scss" scoped>
-    .tags.has-addons {
+    ul {
+        li {
+            margin-top: 5px; 
+        }
+    }
+    h5 .tags.has-addons {
         float: right;
     }
 </style>

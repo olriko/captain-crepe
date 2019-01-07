@@ -5,7 +5,7 @@ import { Session } from '@/types/session'
 
 
 export const session$ = Observable.create(async (observer: Observer<{[s: string]: Session}>) => {
-    const ref = database.ref(`sessions`)
+    const ref = database.ref(`sessions`).limitToLast(3)
 
     const first = await ref.once('value')
     observer.next(first.val())

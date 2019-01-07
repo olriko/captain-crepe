@@ -18,7 +18,6 @@
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -27,17 +26,18 @@ import { currentUser$ } from '@/observables/user'
 import { createSession } from '@/services/session'
 import { session$ } from '@/observables/session'
 import SessionButton from '@/components/SessionButton.vue'
+import { Session } from '@/types/session'
 
 export default Vue.extend({
   name: 'home',
   data: () => ({
-    sessions: {},
+    sessions: {} as {[s: string]: Session},
   }),
   components: {
     SessionButton,
   },
   created() {
-    session$.subscribe((sessions: any) => {
+    session$.subscribe((sessions: {[s: string]: Session}) => {
       this.sessions = sessions
     })
   },

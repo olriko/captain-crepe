@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column">
             <h1 class="title">
-            <router-link to="/">Make My Crepes !</router-link>
+                <router-link to="/"><img class="logo" src="../images/logo.png"/>Captain Crepes !</router-link>
             </h1>
             <h2 class="subtitle">
             An easy way to order crepes ...
@@ -61,3 +61,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+</style>
