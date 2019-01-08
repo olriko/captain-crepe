@@ -54,7 +54,7 @@ export default Vue.extend({
             const wrap: Map<string, number> = new Map()
             for (const key in this.menus) {
                 const menu = this.menus[key]
-                if (menu.ingredients.length === 3) {
+                if (menu.ingredients && menu.ingredients.length === 3) {
                     const k = menu.ingredients.sort().join('-')
                     wrap.set(k, (wrap.get(k) || 0) + 1)
                 }
