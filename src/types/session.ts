@@ -6,3 +6,7 @@ export interface Session {
     owner: string,
     created_at: string,
 }
+
+export interface Sessions {
+    [s: string]: Session
+}

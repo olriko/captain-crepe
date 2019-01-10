@@ -22,28 +22,28 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { currentUser$ } from '@/observables/user'
+import { isAuth } from '@/observables/user'
 import { createSession } from '@/services/session'
 import { session$ } from '@/observables/session'
 import SessionButton from '@/components/SessionButton.vue'
-import { Session } from '@/types/session'
+import { Sessions } from '@/types/session'
 
 export default Vue.extend({
   name: 'home',
   data: () => ({
-    sessions: {} as {[s: string]: Session},
+    sessions: {} as Sessions,
   }),
   components: {
     SessionButton,
   },
   created() {
-    session$.subscribe((sessions: {[s: string]: Session}) => {
+    session$.subscribe((sessions: Sessions) => {
       this.sessions = sessions
     })
   },
   methods: {
     onCreateSession() {
-      if (!currentUser$.value) {
+      if (!isAuth) {
         this.isNotAuthWarning()
       }
       const sessionId = createSession()

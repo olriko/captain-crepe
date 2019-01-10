@@ -1,16 +1,19 @@
-import cookie from 'js-cookie'
-import { database } from '@/firebase'
-import { currentUser$ } from '@/observables/user'
+import { database, auth, googleProvider } from '@/firebase'
 import moment from 'moment'
+import { User } from '@/types/user'
 
-
-export const register = (name: string) => {
-    const userRef = database.ref('users').push({
-        name,
-    })
-
-    if (userRef.key) {
-        cookie.set('token', userRef.key)
+export const login = async () => {
+    const result = await auth.signInWithPopup(googleProvider)
+    const user = result.user
+    if (user) {
+        const userData = user.providerData[0]
+        if (userData) {
+            const userDb: User = {
+                ...userData,
+                online_at: moment().toISOString(),
+            }
+            database.ref(`users/${userDb.uid}`).set(userDb)
+        }
     }
 }
 
@@ -19,12 +22,5 @@ export const getUser = async (userId: string) => {
 }
 
 export const logout = () => {
-    cookie.remove('token')
+    auth.signOut()
 }
-
-setInterval(() => {
-    const user = currentUser$.value
-    if (user) {
-        database.ref(`users/${user.id}/online_at`).set(moment().toISOString())
-    }
-}, 4000)

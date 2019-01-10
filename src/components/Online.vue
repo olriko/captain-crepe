@@ -1,6 +1,6 @@
 <template>
     <div class="tags">
-        <span v-for="user in users" :key="user.id" class="tag is-black">{{ user.name }} <i class="fas fa-fw fa-circle"></i> </span>
+        <span v-for="user in users" :key="user.id" class="tag is-black">{{ user.displayName }} <i class="fas fa-fw fa-circle"></i> </span>
     </div>
 </template>
 
@@ -22,9 +22,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-    .tag {
-        i {
-            color: LawnGreen;
+    .tags {
+        margin-top: 10px;
+        .tag {
+            i {
+                color: LawnGreen;
+            }
         }
     }
 </style>

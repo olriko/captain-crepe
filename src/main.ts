@@ -6,7 +6,6 @@ import store from './store'
 import './registerServiceWorker'
 import VueClipboard from 'vue-clipboard2'
 
-
 Vue.config.productionTip = false
 
 Vue.use(Buefy)

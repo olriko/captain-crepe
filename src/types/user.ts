@@ -1,7 +1,9 @@
+import { UserInfo } from 'firebase'
 
-export interface User {
-    id?: string,
-    name: string,
-    created_at: string,
+export interface User extends UserInfo {
     online_at: string,
+}
+
+export interface Users {
+    [s: string]: User
 }

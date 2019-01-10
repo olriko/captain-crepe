@@ -1,6 +1,6 @@
 <template>
     <div class="menu">
-        <span class="tag name is-dark" v-if="user">{{ user.name }}</span>
+        <span class="tag name is-dark" v-if="user">{{ user.displayName }}</span>
         <div class="tags">
             <span :key="ingredient" v-for="ingredient in menu.ingredients" :class="ingredient === 'egg' && menu.mirror ? 'tag is-warning' :  'tag is-info'">{{ ingredient }}</span>
             <span v-if="menu.dessert" class="tag is-danger">{{ menu.dessert }}</span>

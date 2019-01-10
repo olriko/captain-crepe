@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 
 export const app = firebase.initializeApp({
-    apiKey: process.env.VUE_APP_IREBASE_API_KEY,
+    apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
     authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
     databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
     projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
@@ -10,3 +10,7 @@ export const app = firebase.initializeApp({
 })
 
 export const database = app.database()
+
+export const auth = app.auth()
+
+export const googleProvider =  new firebase.auth.GoogleAuthProvider()
