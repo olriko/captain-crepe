@@ -4,3 +4,16 @@
 @import '~buefy/src/scss/buefy.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Sigmar+One');
+
+.fade-enter-active, .fade-leave-active {
+    transition-property: opacity;
+    transition-duration: .15s;
+  }
+  
+  .fade-enter-active {
+    transition-delay: .15s;
+  }
+  
+  .fade-enter, .fade-leave-active {
+    opacity: 0
+  }

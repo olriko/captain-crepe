@@ -1,6 +1,6 @@
 <template>
     <div v-if="user">
-        <router-link class="button is-fullwidth" :to="{name: 'session', params: { session: id }}">{{ createdAt }} by {{ user.name }} </router-link>	
+        <router-link class="button is-fullwidth" :to="{name: 'session', params: { session: id }}">{{ createdAt }} by {{ user.displayName }} </router-link>	
     </div>
 </template>
 
