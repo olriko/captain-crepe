@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@types/js-cookie": "^2.2.0",
     "@types/moment": "^2.13.0",
+    "axios": "^0.18.0",
     "buefy": "^0.7.1",
     "bulma": "^0.7.2",
     "firebase": "^5.7.1",

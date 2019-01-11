@@ -8,7 +8,9 @@ export const login = async () => {
     if (user) {
         const userData = user.providerData[0]
         if (userData) {
+            const userFetch = await getUser(userData.uid)
             const userDb: User = {
+                ...userFetch,
                 ...userData,
                 online_at: moment().toISOString(),
             }
@@ -17,8 +19,12 @@ export const login = async () => {
     }
 }
 
-export const getUser = async (userId: string) => {
-   return (await database.ref(`users/${userId}`).once('value')).val()
+export const getUser = async (userId: string): Promise<User | undefined> => {
+   const user = await database.ref(`users/${userId}`).once('value')
+   if (user) {
+       return user.val()
+   }
+   return undefined
 }
 
 export const logout = () => {

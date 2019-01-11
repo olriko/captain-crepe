@@ -21,13 +21,3 @@ export const menusFromSession$ = (sessionId: string) => {
         })
     })
 }
-
-export const fetchUserCurrentMenu$ = (sessionId: string) => {
-    return currentUser$.pipe(
-        filter((user) => user !== undefined),
-        map((user) => user ? user.uid : undefined),
-        switchMap((userId) => from(database.ref(`sessions/${sessionId}/menus/${userId}`).once('value'))),
-        filter((snap) => !!snap),
-        map((snap) => snap.val()),
-    )
-}

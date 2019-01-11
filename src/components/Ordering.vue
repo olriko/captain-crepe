@@ -6,9 +6,9 @@
                 <label class="label">Main crepe</label>
                 <div class="control">
                     <div class="tags">
-                        <span 
-                            @click="toggleIngredients(ingredient)" 
-                            :class="menu.ingredients.includes(ingredient) ? 'tag is-success' : 'tag is-info'" 
+                        <span
+                            @click="toggleIngredients(ingredient)"
+                            :class="menu.ingredients.includes(ingredient) ? 'tag is-success' : 'tag is-info'"
                             v-for="ingredient in ingredients" :key="ingredient">
                                 {{ ingredient }}
                             </span>
@@ -25,8 +25,8 @@
                 <div class="tags">
                     <span
                         @click="setDessert(dessert)"
-                        :class="dessert === menu.dessert ? 'tag is-success' : 'tag is-danger'" 
-                        v-for="dessert in desserts" 
+                        :class="dessert === menu.dessert ? 'tag is-success' : 'tag is-danger'"
+                        v-for="dessert in desserts"
                         :key="dessert">
                             {{ dessert }}
                         </span>
@@ -37,12 +37,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, {PropOptions} from 'vue'
 import { INGREDIENT } from '@/types/ingredients'
 import { DESSERT } from '@/types/desserts'
 import { synchronyseMenu } from '@/services/menu'
-import { fetchUserCurrentMenu$ } from '@/observables/menu'
 import { Menu } from '@/types/menu'
+import { Session } from '@/types/session'
+import { currentUser$ } from '@/observables/user'
+import { User } from '@/types/user'
 
 export default Vue.extend({
     data: () => ({
@@ -55,27 +57,31 @@ export default Vue.extend({
         } as Menu,
     }),
     props: {
-        sessionId: String,
+        session: {
+            type: Object,
+            required: true,
+        } as PropOptions<Session>,
+        user: {
+            type: Object,
+            required: true,
+        } as PropOptions<User>,
+    },
+    created() {
+        if (
+            this.user
+            && this.session.menus
+            && this.session.menus[this.user.uid]
+        ) {
+            this.menu = this.session.menus[this.user.uid]
+        }
     },
     watch: {
         menu: {
             async handler(menu) {
-                await synchronyseMenu(this.sessionId, menu)
+                await synchronyseMenu(this.session.id, menu)
             },
             deep: true,
         },
-    },
-    async created() {
-        fetchUserCurrentMenu$(this.sessionId).subscribe((menu) => {
-            if (menu) {
-                this.menu = {
-                    ingredients: [],
-                    dessert: null,
-                    mirror: false,
-                    ...menu,
-                }
-            }
-        })
     },
     methods: {
         setDessert(dessert: DESSERT) {

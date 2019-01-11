@@ -12,7 +12,10 @@
         <div class="column is-one-quarter">
             <b-field v-if="!user">
                 <button @click="onLogin" class="button is-primary is-rounded">
-                    <i class="fab fa-google fa-fw"></i> Login
+                    <span class="icon">
+                        <i class="fab fa-google fa-fw"></i>
+                    </span>
+                    <span> Login </span>
                 </button>
             </b-field>
             <div v-else>

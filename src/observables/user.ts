@@ -30,14 +30,14 @@ export const isAuth = () => !!currentUser.getValue()
 
 export const currentUser$: Observable<User | undefined> = authUser$.pipe(
     distinctUntilChanged(),
-    switchMap((user) => user ? getUser(user.uid) : of(undefined)),
+    switchMap((user) => user ? user$(user.uid) : of(undefined)),
     tap((user) => currentUser.next(user)),
 )
 
 /**
  * get user
  */
-export const getUser = (uid: string): Observable<User> => Observable.create((observer: Observer<User>) => {
+export const user$ = (uid: string): Observable<User> => Observable.create((observer: Observer<User>) => {
     database.ref(`users/${uid}`).on('value', (snap) => {
         if (snap) {
             observer.next(snap.val())
@@ -49,7 +49,7 @@ export const getUser = (uid: string): Observable<User> => Observable.create((obs
 /**
  * get users
  */
-export const user$: Observable<Users> = Observable.create((observer: Observer<Users>) => {
+export const userList$: Observable<Users> = Observable.create((observer: Observer<Users>) => {
     database.ref('users').on('value', (snap) => {
         if (snap) {
             observer.next(snap.val())
@@ -60,7 +60,7 @@ export const user$: Observable<Users> = Observable.create((observer: Observer<Us
 /**
  * get online user
  */
-export const onlineUser$ = user$.pipe(
+export const onlineUser$ = userList$.pipe(
     map((users) => Object.values(users)),
     map((users) => users.filter(
         (user: User) => user.online_at && moment(user.online_at).isSameOrAfter(moment().subtract(5, 'seconds'))),

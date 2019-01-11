@@ -12,10 +12,11 @@
 import Vue from 'vue'
 import { Menu } from '@/types/menu'
 import { getUser } from '../services/auth'
+import { User } from '@/types/user'
 
 export default Vue.extend({
     data: () => ({
-        user: undefined,
+        user: undefined as User | undefined,
     }),
     props: {
         menu: Object,
@@ -23,8 +24,6 @@ export default Vue.extend({
     },
     async created() {
         this.user = await getUser(this.userId)
-    },
-    methods: {
     },
 })
 </script>

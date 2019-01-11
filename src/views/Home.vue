@@ -9,7 +9,7 @@
       <div class="column is-half">
         <article class="message">
           <div class="message-header">
-            <p>Last sessions</p>
+            <p>Active sessions</p>
           </div>
           <div class="message-body">
             <session-button v-for="(session, index) in sessions" :id="index" :session="session" :key="index"/>
@@ -24,7 +24,7 @@
 import Vue from 'vue'
 import { isAuth } from '@/observables/user'
 import { createSession } from '@/services/session'
-import { session$ } from '@/observables/session'
+import { sessionList$ } from '@/observables/session'
 import SessionButton from '@/components/SessionButton.vue'
 import { Sessions } from '@/types/session'
 
@@ -37,7 +37,7 @@ export default Vue.extend({
     SessionButton,
   },
   created() {
-    session$.subscribe((sessions: Sessions) => {
+    sessionList$.subscribe((sessions: Sessions) => {
       this.sessions = sessions
     })
   },
