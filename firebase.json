@@ -6,12 +6,26 @@
     "predeploy": "npm --prefix functions run build"
   },
   "hosting": {
-    "headers": [
-      { "source":"**/*.@(html|css|js)", "headers": [
-          {"key": "Cache-Control", "value": "no-cache"}
-        ]
-      }
-    ],
+    "headers": [{
+      "source" : "**/*.@(css|js)",
+      "headers" : [{
+        "key" : "Cache-Control",
+        "value" : "max-age=3500"
+      }]
+    },{
+      "source" : "**/*.html",
+      "headers" : [{
+        "key" : "Cache-Control",
+        "value" : "max-age=0, no-cache"
+      }]
+    },
+    {
+      "source" : "**/*.@(jpg|jpeg|gif|png)",
+      "headers" : [{
+        "key" : "Cache-Control",
+        "value" : "max-age=3300"
+      }]
+    }],
     "public": "dist",
     "ignore": [
       "firebase.json",

@@ -1,8 +1,8 @@
 export enum DESSERT {
     CHOCOLATE = 'chocolate',
     NUTELLA = 'nutella',
-    CARAMEL = 'caramel',
+    CARAMEL = 'salted butter caramel',
     SUGAR = 'sugar',
-    MARRON = 'marron',
+    CHESNUT = 'chesnut cream',
     JAM = 'jam',
 }

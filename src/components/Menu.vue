@@ -1,9 +1,14 @@
 <template>
-    <div class="menu">
-        <span class="tag name is-dark" v-if="user">{{ user.displayName }}</span>
-        <div class="tags">
-            <span :key="ingredient" v-for="ingredient in menu.ingredients" :class="ingredient === 'egg' && menu.mirror ? 'tag is-warning' :  'tag is-info'">{{ ingredient }}</span>
-            <span v-if="menu.dessert" class="tag is-danger">{{ menu.dessert }}</span>
+    <div class="menu" v-if="user">
+        <div class="picture">
+            <img :src="user.photoURL">
+        </div>
+        <div class="content">
+            <p class="name">{{ user.displayName }}</p>
+            <div class="tags">
+                <span :key="ingredient" v-for="ingredient in menu.ingredients" :class="ingredient === 'egg' && menu.mirror ? 'tag is-warning' :  'tag is-info'">{{ ingredient }}</span>
+                <span v-if="menu.dessert" class="tag is-danger">{{ menu.dessert === 'salted butter caramel' ? 'sbl' :  menu.dessert }}</span>
+            </div> 
         </div>
     </div>
 </template>
@@ -30,15 +35,30 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
     .menu {
-        margin-left: 1rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .name {
-        margin-bottom: 0.5rem;
-    }
-
-    .tags {
+        background-color: white;
+        border-radius: $radius;
+        width: 100%;
+        height: 60px;
         margin-bottom: 1rem;
+        white-space: nowrap;
+
+        .picture {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            img {
+                border-radius: $radius 0 0 $radius;
+            }
+        }
+        .content {
+            display: inline-block;
+            vertical-align: top;
+            padding: 5px;
+
+            .name {
+                margin-bottom: 0px;
+                font-weight: 500;
+            }
+        }
     }
 </style>

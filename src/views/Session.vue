@@ -21,10 +21,6 @@
       <div class="column">
           <manage v-if="session && (isOwner || isAdmin)" :user="user" :session-id="session.id"/>
           <menus :session="session"/>
-          <div class="tags has-addons">
-              <span class="tag is-dark">Phone</span>
-              <span class="tag is-primary">01 42 81 98 19</span>
-          </div>
       </div>
     </div>
   </div>
@@ -74,7 +70,7 @@ export default Vue.extend({
         return true
       }
       return false
-    }
+    },
   },
 })
 </script>

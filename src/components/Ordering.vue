@@ -5,13 +5,13 @@
             <div class="field">
                 <label class="label">Main crepe</label>
                 <div class="control">
-                    <div class="tags">
-                        <span
+                    <div class="buttons">
+                        <button
                             @click="toggleIngredients(ingredient)"
-                            :class="menu.ingredients.includes(ingredient) ? 'tag is-success' : 'tag is-info'"
+                            :class="menu.ingredients.includes(ingredient) ? 'button is-outlined is-info is-small' : 'button is-info is-small'"
                             v-for="ingredient in ingredients" :key="ingredient">
                                 {{ ingredient }}
-                            </span>
+                            </button>
                     </div>
                 </div>
                 <p class="help" v-if="menu.ingredients.length"> {{ menu.ingredients.length }} / 3 </p>
@@ -22,14 +22,14 @@
                 </b-switch>
             </b-field>
             <b-field label="Sweet crepe">
-                <div class="tags">
-                    <span
+                <div class="buttons">
+                    <button
                         @click="setDessert(dessert)"
-                        :class="dessert === menu.dessert ? 'tag is-success' : 'tag is-danger'"
+                        :class="dessert === menu.dessert ? 'button is-danger is-outlined is-small' : 'button is-danger is-small'"
                         v-for="dessert in desserts"
                         :key="dessert">
                             {{ dessert }}
-                        </span>
+                    </button>
                 </div>
             </b-field>
         </div>
@@ -100,7 +100,14 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-    .tag {
-        cursor: pointer;
+    .is-outlined:focus {
+        background-color: transparent!important;
+        &.is-danger {
+            color: $danger!important;
+        }
+
+        &.is-info {
+            color: $info!important;
+        }
     }
 </style>

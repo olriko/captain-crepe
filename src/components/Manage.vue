@@ -16,6 +16,14 @@
                 Share on Slack
             </span>
         </button>
+        <button class="button" @click="wrap()">
+            <span class="icon is-small">
+                <i class="fas fa-sort-numeric-down"></i>
+            </span>
+            <span>
+                Wrap
+            </span>
+        </button>
     </div>
 </template>
 
@@ -51,8 +59,11 @@ export default Vue.extend({
         },
         async slackNotification() {
             await notification(
-                `:captain-crepe: Hi, ${this.user.displayName} has opened a new <${window.location.href}|session>`,
+                `Tonnerre de brest, ${this.user.displayName} has opened a new <${window.location.href}|session> :captain-crepe: ! @here`,
             )
+        },
+        wrap() {
+            this.$router.push({name: 'wrap', params: {session: this.$route.params.session}})
         },
     },
 })
