@@ -2,7 +2,16 @@
   "database": {
     "rules": "database.rules.json"
   },
+  "functions": {
+    "predeploy": "npm --prefix functions run build"
+  },
   "hosting": {
+    "headers": [
+      { "source":"**/*.@(html|css|js)", "headers": [
+          {"key": "Cache-Control", "value": "no-cache"}
+        ]
+      }
+    ],
     "public": "dist",
     "ignore": [
       "firebase.json",
