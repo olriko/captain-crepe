@@ -6,12 +6,13 @@
                 <label class="label">Main crepe</label>
                 <div class="control">
                     <div class="buttons">
-                        <button
-                            @click="toggleIngredients(ingredient)"
-                            :class="menu.ingredients.includes(ingredient) ? 'button is-outlined is-info is-small' : 'button is-info is-small'"
-                            v-for="ingredient in ingredients" :key="ingredient">
-                                {{ ingredient }}
-                            </button>
+                        <ingredient
+                            v-for="ingredient in ingredients"
+                            :key="ingredient"
+                            :ingredient="ingredient"
+                            :selected="menu.ingredients.includes(ingredient)"
+                            @click.native="toggleIngredients(ingredient)"
+                            />
                     </div>
                 </div>
                 <p class="help" v-if="menu.ingredients.length"> {{ menu.ingredients.length }} / 3 </p>
@@ -23,13 +24,14 @@
             </b-field>
             <b-field label="Sweet crepe">
                 <div class="buttons">
-                    <button
-                        @click="setDessert(dessert)"
-                        :class="dessert === menu.dessert ? 'button is-danger is-outlined is-small' : 'button is-danger is-small'"
+                    <ingredient
                         v-for="dessert in desserts"
-                        :key="dessert">
-                            {{ dessert }}
-                    </button>
+                        :key="dessert"
+                        :ingredient="dessert"
+                        :selected="dessert === menu.dessert"
+                        :dessert="true"
+                        @click.native="setDessert(dessert)"
+                        />
                 </div>
             </b-field>
             <b-field>
@@ -57,6 +59,7 @@ import { Session } from '@/types/session'
 import { currentUser$ } from '@/observables/user'
 import { User } from '@/types/user'
 import { FLAVOR } from '@/types/jam-flavors'
+import Ingredient from '@/components/Ingredient.vue'
 
 export default Vue.extend({
     data: () => ({
@@ -113,6 +116,9 @@ export default Vue.extend({
             }
         },
     },
+    components: {
+        Ingredient,
+    }
 })
 </script>
 
