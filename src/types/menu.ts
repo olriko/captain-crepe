@@ -5,7 +5,7 @@ import { FLAVOR } from '@/types/jam-flavors'
 export interface Menu {
     id?: string
     ingredients: INGREDIENT[],
-    dessert: DESSERT | undefined,
+    dessert: DESSERT | null,
     mirror: boolean,
-    flavor?: FLAVOR | undefined,
+    flavor?: FLAVOR | null,
 }

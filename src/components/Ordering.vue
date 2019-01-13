@@ -68,8 +68,8 @@ export default Vue.extend({
         flavors: Object.values(FLAVOR) as FLAVOR[],
         menu: {
             ingredients: [] as INGREDIENT[],
-            dessert: undefined as DESSERT | undefined,
-            flavor: undefined as FLAVOR | undefined,
+            dessert: null as DESSERT | null,
+            flavor: null as FLAVOR | null,
             mirror: false,
         } as Menu,
     }),
@@ -118,7 +118,7 @@ export default Vue.extend({
     },
     components: {
         Ingredient,
-    }
+    },
 })
 </script>
 
