@@ -1,8 +1,8 @@
 {
   "name": "Captain Crepes",
-  "short_name": "CC",
-  "theme_color": "#21aef3",
-  "background_color": "#276495",
+  "short_name": "Captain Crepes",
+  "theme_color": "#ff0000",
+  "background_color": "#eeeeee",
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",

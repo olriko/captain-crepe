@@ -32,6 +32,17 @@
                     </button>
                 </div>
             </b-field>
+            <b-field>
+                <div class="buttons" v-if="menu.dessert === 'jam'">
+                    <button
+                        v-for="flavor in flavors"
+                        @click="setFlavor(flavor)"
+                        :class="flavor === menu.flavor ? 'button is-outlined  is-link is-small' : 'button is-link is-small'"
+                        :key="flavor">
+                            {{ flavor }}
+                    </button>
+                </div>
+            </b-field>
         </div>
     </div>
 </template>
@@ -45,14 +56,17 @@ import { Menu } from '@/types/menu'
 import { Session } from '@/types/session'
 import { currentUser$ } from '@/observables/user'
 import { User } from '@/types/user'
+import { FLAVOR } from '@/types/jam-flavors'
 
 export default Vue.extend({
     data: () => ({
         ingredients: Object.values(INGREDIENT) as INGREDIENT[],
         desserts: Object.values(DESSERT) as DESSERT[],
+        flavors: Object.values(FLAVOR) as FLAVOR[],
         menu: {
             ingredients: [] as INGREDIENT[],
-            dessert: null as DESSERT | null,
+            dessert: undefined as DESSERT | undefined,
+            flavor: undefined as FLAVOR | undefined,
             mirror: false,
         } as Menu,
     }),
@@ -84,6 +98,9 @@ export default Vue.extend({
         },
     },
     methods: {
+        setFlavor(flavor: FLAVOR) {
+            this.menu.flavor = flavor
+        },
         setDessert(dessert: DESSERT) {
             this.menu.dessert = dessert
         },
@@ -108,6 +125,10 @@ export default Vue.extend({
 
         &.is-info {
             color: $info!important;
+        }
+
+        &.is-link {
+            color: $link!important;
         }
     }
 </style>

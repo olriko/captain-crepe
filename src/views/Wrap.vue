@@ -23,7 +23,7 @@
                             </span>
                        </li>
                    </ul>
-                    <h2>Desserts</h2>
+                    <h2>Sweet crepes</h2>
                     <ul type="disc">
                        <li v-for="menu in wrappedDessert" :key="menu.ingredients">
                             <span class="tag is-danger">{{ menu.dessert }}</span>
@@ -44,6 +44,7 @@ import Vue from 'vue'
 import { Session } from '@/types/session'
 import { session$ } from '@/observables/session'
 import { isAuth$ } from '@/observables/user'
+import { DESSERT } from '@/types/desserts'
 
 
 export default Vue.extend({
@@ -85,7 +86,8 @@ export default Vue.extend({
                 for (const key in this.session.menus) {
                     const menu = this.session.menus[key]
                     if (menu.dessert) {
-                        wrap.set(menu.dessert, (wrap.get(menu.dessert) || 0) + 1)
+                        const dessert = menu.dessert === DESSERT.JAM && menu.flavor ? `${menu.flavor} jam` : menu.dessert
+                        wrap.set(dessert, (wrap.get(dessert) || 0) + 1)
                     }
                 }
             }

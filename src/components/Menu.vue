@@ -7,8 +7,12 @@
             <p class="name">{{ user.displayName }}</p>
             <div class="tags">
                 <span :key="ingredient" v-for="ingredient in menu.ingredients" :class="ingredient === 'egg' && menu.mirror ? 'tag is-warning' :  'tag is-info'">{{ ingredient }}</span>
-                <span v-if="menu.dessert" class="tag is-danger">{{ menu.dessert === 'salted butter caramel' ? 'sbl' :  menu.dessert }}</span>
-            </div> 
+                <span v-if="menu.dessert && menu.dessert !== 'jam'" class="tag is-danger">{{ menu.dessert === 'salted butter caramel' ? 'sbl' :  menu.dessert }}</span>
+                 <span v-if="menu.dessert && menu.dessert === 'jam'" class="tags has-addons jam">
+                    <span class="tag is-danger">{{ menu.dessert }}</span>
+                    <span v-if="menu.flavor" class="tag is-link">{{ menu.flavor }}</span>
+                 </span>
+            </div>
         </div>
     </div>
 </template>
@@ -55,6 +59,12 @@ export default Vue.extend({
             vertical-align: top;
             padding: 5px;
 
+            .tags {
+                white-space: nowrap;
+                &.jam {
+                    margin-bottom: 1px;
+                }
+            }
             .name {
                 margin-bottom: 0px;
                 font-weight: 500;
