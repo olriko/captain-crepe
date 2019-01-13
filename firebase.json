@@ -18,8 +18,13 @@
         "key" : "Cache-Control",
         "value" : "max-age=0, no-cache"
       }]
-    },
-    {
+      },{
+        "source" : "manifest.json",
+        "headers" : [{
+          "key" : "Cache-Control",
+          "value" : "max-age=0, no-cache"
+        }]
+    },{
       "source" : "**/*.@(jpg|jpeg|gif|png)",
       "headers" : [{
         "key" : "Cache-Control",

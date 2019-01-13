@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { isAuth } from '@/observables/user'
+import { isAuth$ } from '@/observables/user'
 import { createSession } from '@/services/session'
 import { sessionList$ } from '@/observables/session'
 import SessionButton from '@/components/SessionButton.vue'
@@ -32,6 +32,7 @@ export default Vue.extend({
   name: 'home',
   data: () => ({
     sessions: {} as Sessions,
+    isAuth: false,
   }),
   components: {
     SessionButton,
@@ -40,10 +41,14 @@ export default Vue.extend({
     sessionList$.subscribe((sessions: Sessions) => {
       this.sessions = sessions
     })
+
+    isAuth$.subscribe((isAuth) => {
+      this.isAuth = isAuth
+    })
   },
   methods: {
     onCreateSession() {
-      if (!isAuth) {
+      if (!this.isAuth) {
         this.isNotAuthWarning()
       }
       const sessionId = createSession()

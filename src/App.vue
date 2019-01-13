@@ -7,6 +7,7 @@
           </transition>
       </div>
     <bottom/>
+    <browser-notification/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import Vue from 'vue'
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
+import BrowserNotification from '@/components/BrowserNotification.vue'
 
 
 export default Vue.extend({
@@ -21,6 +23,7 @@ export default Vue.extend({
   components: {
     top: Header,
     bottom: Footer,
+    BrowserNotification,
   },
 })
 </script>
