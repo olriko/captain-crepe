@@ -1,7 +1,11 @@
 
-export const browserNotification = (body: string) => {
-    const notification = new Notification('Captain Haddock', {
-        body,
-        icon: '/img/haddock.png',
-    })
+export const browserNotification = async (body: string) => {
+    // if ('serviceWorker' in navigator && 'PushManager' in window) {
+    //     const pushManager = new PushManager()
+    //     const subscription = await pushManager.getSubscription()
+
+    //     if (subscription) {
+    //         subscription
+    //     }
+    // }
 }

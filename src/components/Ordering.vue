@@ -17,11 +17,6 @@
                 </div>
                 <p class="help" v-if="menu.ingredients.length"> {{ menu.ingredients.length }} / 3 </p>
             </div>
-            <b-field v-if="menu.ingredients.includes('egg')">
-                <b-switch size="is-small" v-model="menu.mirror" type="is-info">
-                    Egg mirror
-                </b-switch>
-            </b-field>
             <b-field label="Sweet crepe">
                 <div class="buttons">
                     <ingredient
@@ -70,7 +65,6 @@ export default Vue.extend({
             ingredients: [] as INGREDIENT[],
             dessert: null as DESSERT | null,
             flavor: null as FLAVOR | null,
-            mirror: false,
         } as Menu,
     }),
     props: {

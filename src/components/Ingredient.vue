@@ -1,18 +1,25 @@
 <template>
-    <button
-        class="button"
-        :class="{
-            'is-outlined': selected,
-            'is-info': !dessert,
-            'is-danger': dessert,
-        }"
+    <b-tooltip class="ingredient"
+        :label="tooltip"
+        :active="!!tooltip"
+        position="is-bottom"
+        :animated="true"
         >
-        <img
-            v-if="icon"
-            :src="icon"
-            />
-        {{ ingredient }}
-    </button>
+        <button
+            class="button"
+            :class="{
+                'is-outlined': selected,
+                'is-info': !dessert,
+                'is-danger': dessert,
+            }"
+            >
+            <img
+                v-if="icon"
+                :src="icon"
+                />
+            {{ ingredient }}
+        </button>
+    </b-tooltip>
 </template>
 
 <script lang="ts">
@@ -36,6 +43,15 @@ export default Vue.extend({
         },
     },
     computed: {
+        tooltip(): string | undefined {
+            switch (this.ingredient) {
+                case INGREDIENT.EGG:
+                    return 'Outside'
+                case INGREDIENT.EGG_MIRROR:
+                    return 'Inside'
+            }
+            return undefined
+        },
         icon(): string | undefined {
             switch (this.ingredient) {
                 case INGREDIENT.HAM:
@@ -57,6 +73,8 @@ export default Vue.extend({
                 case INGREDIENT.CHICKEN:
                     return '/img/icons/ingredients/chicken.svg'
                 case INGREDIENT.EGG:
+                    return '/img/icons/ingredients/fried-egg.svg'
+                case INGREDIENT.EGG_MIRROR:
                     return '/img/icons/ingredients/fried-egg.svg'
                 case DESSERT.CHOCOLATE:
                     return '/img/icons/ingredients/chocolate-bar.svg'
@@ -82,5 +100,24 @@ img {
     width: 24px;
     height: 24px;
     margin-right: 8px;
+}
+
+.ingredient {
+    margin-right: 8px;
+
+    .is-outlined:focus {
+        background-color: transparent!important;
+        &.is-danger {
+            color: $danger!important;
+        }
+
+        &.is-info {
+            color: $info!important;
+        }
+
+        &.is-link {
+            color: $link!important;
+        }
+    }
 }
 </style>

@@ -8,4 +8,5 @@ export enum INGREDIENT {
     PATATO = 'patato',
     CHICKEN = 'chicken',
     EGG = 'egg',
+    EGG_MIRROR = 'egg mirror',
 }
