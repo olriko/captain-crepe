@@ -1,7 +1,10 @@
 <template>
     <div class="columns is-centered">
         <div class="column is-half">
-            <div v-if="isAuth" class="buttons">
+            <div class="tags is-pulled-right">
+                <span class="tag is-primary" v-if="session">{{ session.delivery_at | time }}</span>
+            </div>
+            <div class="buttons">
                 <button @click="back()" class="button is-black is-small">
                     <span class="icon is-small">
                         <i class="fas fa-chevron-left fa-fw"></i>

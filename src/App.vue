@@ -7,7 +7,7 @@
           </transition>
       </div>
     <bottom/>
-    <browser-notification/>
+    <!-- <browser-notification/> -->
   </div>
 </template>
 

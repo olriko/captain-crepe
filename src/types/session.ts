@@ -4,8 +4,9 @@ export interface Session {
     id: string,
     menus?: {[s: string]: Menu},
     owner: string,
-    created_at: string,
+    created_at: Date,
     locked: boolean,
+    delivery_at: Date,
 }
 
 export interface Sessions {

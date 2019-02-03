@@ -1,39 +1,43 @@
 <template>
-    <section class="hero is-small is-dark is-bold">
-    <div class="hero-body">
-      <div class="container">
-      <div class="columns">
-        <div class="column">
-            <h1 class="title">
-                <router-link to="/"><img class="logo" src="../images/logo.png"/>Captain Crepes !</router-link>
-            </h1>
-            <h2 class="subtitle">An easy way to order crepes ...</h2>
-        </div>
-        <div class="column is-one-quarter">
-            <b-field v-if="!user">
-                <button @click="onLogin" class="button is-primary is-rounded">
-                    <span class="icon">
-                        <i class="fab fa-google fa-fw"></i>
-                    </span>
-                    <span> Login </span>
-                </button>
-            </b-field>
-            <div v-else>
-                <div @click="onLogout" class="user">
-                    <div class="picture">
-                        <img :src="user.photoURL">
-                    </div>
-                    <div class="name">
-                        {{ user.displayName }}
+    <div>
+        <section class="hero is-small is-dark is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column">
+                            <h1 class="title">
+                                <router-link to="/"><img class="logo" src="../images/logo.png"/>Captain Crepes !</router-link>
+                            </h1>
+                            <h2 class="subtitle">An easy way to order crepes ...</h2>
+                        </div>
+                        <div class="column is-one-quarter">
+                            <b-field v-if="!user">
+                                <button @click="onLogin" class="button is-primary is-rounded">
+                                    <span class="icon">
+                                        <i class="fab fa-google fa-fw"></i>
+                                    </span>
+                                    <span> Login </span>
+                                </button>
+                            </b-field>
+                            <div v-else>
+                                <div @click="onLogout" class="user">
+                                    <div class="picture">
+                                        <img :src="user.photoURL">
+                                    </div>
+                                    <div class="name">
+                                        {{ user.displayName }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <online/>
             </div>
+        </section>
+        <div class="container">
+            <online/>
         </div>
-      </div>
     </div>
-    </div>
-    </section>
 </template>
 
 <script lang="ts">

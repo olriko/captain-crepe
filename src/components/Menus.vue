@@ -9,7 +9,7 @@
                 </div>
             </h5>
         </div>
-        <menu-item v-if="Object.keys(session.menus || {}).length > 0" v-for="(menu, userId) in session.menus" :key="userId" :userId="userId" :menu="menu"/>
+        <menu-item :session-id="session.id" v-if="Object.keys(session.menus || {}).length > 0" v-for="(menu, userId) in session.menus" :key="userId" :userId="userId" :menu="menu"/>
         <div v-if="!Object.keys(session.menus || {}).length" class="box has-text-centered">
             <i class="fas fa-exclamation-triangle"></i>
             <p>Menus.lenght === 0</p>
@@ -43,7 +43,6 @@ export default Vue.extend({
             float: right;
         }
     }
-
     .box {
         margin-bottom: 1rem;
         i {

@@ -11,6 +11,10 @@ Vue.config.productionTip = false
 Vue.use(Buefy)
 Vue.use(VueClipboard)
 
+Vue.filter('time', (value: Date) => {
+  return `${value.getHours()}:${value.getMinutes()}`
+})
+
 new Vue({
   router,
   store,

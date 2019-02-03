@@ -12,8 +12,11 @@
             <span class="icon is-small">
                 <i class="fab fa-slack-hash"></i>
             </span>
-            <span>
-                Share on Slack
+            <span v-if="!locked">
+                Share on Slack 
+            </span>
+            <span v-if="locked">
+                Kitchen
             </span>
         </button>
         <button class="button" @click="wrap()">
@@ -58,9 +61,15 @@ export default Vue.extend({
             await lockToggle(this.sessionId)
         },
         async slackNotification() {
-            await notification(
-                `Tonnerre de brest, ${this.user.displayName} has opened a new <${window.location.href}|session> :captain-crepe: ! @here`,
-            )
+            if (this.locked) {
+                await notification(
+                    `Tonnerre de brest, ${this.user.displayName} has opened a new <${window.location.href}|session> :captain-crepe: ! @here`,
+                )
+            } else {
+                await notification(
+                    `Crepes are in the kitchen :captain-crepe: ! @here`,
+                )
+            }
         },
         wrap() {
             this.$router.push({name: 'wrap', params: {session: this.$route.params.session}})

@@ -1,7 +1,26 @@
 <template>
     <div>
         <div class="box">
-            <h1 class="title">Compose your crepe !</h1>
+            <h1 class="title">Compose your crepe !
+                <div class="tags has-addons is-pulled-right" v-if="!user.admin && user.uid !== session.owner">
+                    <span class="tag is-link">{{ session.delivery_at | time }}</span>
+                </div>
+                <div class="time-select" v-else>
+                    <b-timepicker
+                    :value="session.delivery_at"
+                    :min-time="minTime"
+                    :max-time="maxTime"
+                    placeholder="Select a time..."
+                    icon="clock"
+                    icon-pack="fas"
+                    :increment-minutes="5"
+                    :inline="true"
+                    size="is-small"
+                    @input="setTime"
+                    />
+                </div>
+            </h1>
+            <h5 class="subtitle is-6">Only 8€</h5>
             <div class="field">
                 <label class="label">Main crepe</label>
                 <div class="control">
@@ -48,6 +67,7 @@
 import Vue, {PropOptions} from 'vue'
 import { INGREDIENT } from '@/types/ingredients'
 import { DESSERT } from '@/types/desserts'
+import { menuSessionUser$ } from '@/observables/menu'
 import { synchronyseMenu } from '@/services/menu'
 import { Menu } from '@/types/menu'
 import { Session } from '@/types/session'
@@ -55,6 +75,7 @@ import { currentUser$ } from '@/observables/user'
 import { User } from '@/types/user'
 import { FLAVOR } from '@/types/jam-flavors'
 import Ingredient from '@/components/Ingredient.vue'
+import { setTime } from '@/services/session'
 
 export default Vue.extend({
     data: () => ({
@@ -66,6 +87,9 @@ export default Vue.extend({
             dessert: null as DESSERT | null,
             flavor: null as FLAVOR | null,
         } as Menu,
+        displayEditDelivery: false,
+        minTime: {} as Date,
+        maxTime: {} as Date,
     }),
     props: {
         session: {
@@ -78,6 +102,13 @@ export default Vue.extend({
         } as PropOptions<User>,
     },
     created() {
+        this.minTime = new Date()
+        this.maxTime = new Date()
+
+        this.minTime.setHours(11)
+        this.minTime.setMinutes(0)
+        this.maxTime.setHours(15)
+        this.maxTime.setMinutes(0)
         if (
             this.user
             && this.session.menus
@@ -85,6 +116,16 @@ export default Vue.extend({
         ) {
             this.menu = this.session.menus[this.user.uid]
         }
+
+        menuSessionUser$(this.session.id, this.user.uid).subscribe((menu)  => {
+            if (!menu) {
+                this.menu = {
+                    ingredients: [],
+                    dessert: null,
+                    flavor: null,
+                }
+            }
+        })
     },
     watch: {
         menu: {
@@ -95,6 +136,9 @@ export default Vue.extend({
         },
     },
     methods: {
+        setTime(time: Date) {
+            setTime(time, this.session.id)
+        },
         setFlavor(flavor: FLAVOR) {
             this.menu.flavor = flavor
         },
@@ -117,6 +161,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+    .time-select {
+        float: right;
+        .timepicker {
+            display: inline;
+        }
+    }
     .is-outlined:focus {
         background-color: transparent!important;
         &.is-danger {

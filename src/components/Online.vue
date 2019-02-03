@@ -1,6 +1,8 @@
 <template>
-    <div class="tags">
-        <span v-for="user in users" :key="user.id" class="tag is-black">{{ user.displayName }} <i class="fas fa-fw fa-circle"></i> </span>
+    <div class="online">
+        <div class="tags">
+            <span v-for="user in users" :key="user.id" class="tag is-black">{{ user.displayName }} <i class="fas fa-fw fa-circle"></i> </span>
+        </div>
     </div>
 </template>
 
@@ -22,11 +24,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-    .tags {
-        margin-top: 10px;
-        .tag {
-            i {
-                color: LawnGreen;
+    .online {
+        overflow: hidden;
+        .tags {
+            margin-top: 10px;
+            .tag {
+                white-space: nowrap;
+                i {
+                    color: LawnGreen;
+                }
             }
         }
     }

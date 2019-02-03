@@ -11,6 +11,7 @@ export const createSession = () => {
         owner: owner.uid,
         created_at: now(),
         locked: false,
+        delivery_at: '12:15',
     })
     return sessionRef.key || undefined
 }
@@ -23,4 +24,9 @@ export const lockToggle = async (sessionId: string): Promise<boolean> => {
         await ref.set(!(current.val() || false))
     }
     return !(current.val() || false)
+}
+
+export const setTime = async (time: Date, sessionId: string) => {
+    const ref = database.ref(`sessions/${sessionId}/delivery_at`)
+    ref.set(`${time.getHours()}:${time.getMinutes()}`)
 }

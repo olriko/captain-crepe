@@ -2,12 +2,10 @@ import { database } from '@/firebase'
 import { Observable } from 'rxjs'
 import { Observer } from 'firebase'
 import { Menu } from '@/types/menu'
-import { from } from 'rxjs'
-import { filter, map, switchMap } from 'rxjs/operators'
-import { currentUser$ } from '@/observables/user'
+import { map, filter, tap } from 'rxjs/operators'
 
 
-export const menusFromSession$ = (sessionId: string) => {
+export const menusFromSession$ = (sessionId: string): Observable<{[s: string]: Menu}> => {
     return Observable.create(async (observer: Observer<{[s: string]: Menu}>) => {
         const ref = database.ref(`sessions/${sessionId}/menus`)
 
@@ -20,4 +18,10 @@ export const menusFromSession$ = (sessionId: string) => {
             }
         })
     })
+}
+
+export const menuSessionUser$ = (sessionId: string, userId: string): Observable<Menu | undefined> => {
+    return menusFromSession$(sessionId).pipe(
+        map((menus) => menus ? (menus[userId] || undefined) : undefined),
+    )
 }

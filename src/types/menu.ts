@@ -6,6 +6,5 @@ export interface Menu {
     id?: string
     ingredients: INGREDIENT[],
     dessert: DESSERT | null,
-    mirror: boolean,
     flavor?: FLAVOR | null,
 }
