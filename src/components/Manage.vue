@@ -61,7 +61,7 @@ export default Vue.extend({
             await lockToggle(this.sessionId)
         },
         async slackNotification() {
-            if (this.locked) {
+            if (!this.locked) {
                 await notification(
                     `Tonnerre de brest, ${this.user.displayName} has opened a new <${window.location.href}|session> :captain-crepe: ! @here`,
                 )
